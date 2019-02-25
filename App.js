@@ -58,9 +58,11 @@ export default createBottomTabNavigator({
       )
     }
   },
-}, { //router config
+}, { 
+  //router config
   //initialRouteName: 'Account', //que pestaña se visualiza primero
   //order: ['Channels', 'Account', 'Destiny'], //orden en el que se visualiza en el tab
+  
   //navigation for complete tab navigation
   navigationOptions: {
     tabBarVisible: true,
