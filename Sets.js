@@ -6,7 +6,7 @@ export class Sets extends Component{
     render() {
       return (
         <View style={styles.container}>
-          <Text style={styles.welcome}>Hola :) 2Bienvenido </Text>
+          <Text style={styles.welcome}>Estos conductores van al mismo lugar que tú o casi </Text>
         </View>
       );
     }
