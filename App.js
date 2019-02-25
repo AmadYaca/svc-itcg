@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import { StyleSheet, Text, View} from 'react-native';
+import { Sets } from './Sets'
 
 import { createBottomTabNavigator } from 'react-navigation'
 
@@ -13,19 +14,9 @@ export class Home extends Component{
   }
 } 
 
-export class Settings extends Component{
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>Hola :) Bienvenido </Text>
-      </View>
-    );
-  }
-}
-
 export default createBottomTabNavigator({
-  Home:Home,
-  Settings:Settings
+  Home: {screen: Home},
+  Settings: {screen: Sets},
 });
 
 const styles = StyleSheet.create({
