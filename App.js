@@ -16,8 +16,9 @@ export class Home extends Component {
       <MapView
         style={styles.map}
         initialRegion={{
-          latitude: 37.78825,
-          longitude: -122.4324,
+          //guzman ciri ranch
+          latitude: 19.7046600,
+          longitude: -103.4617000,
           latitudeDelta: 0.0922,
           longitudeDelta: 0.0421,
         }}
