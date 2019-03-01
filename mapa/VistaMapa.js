@@ -1,13 +1,40 @@
 import React, { Component } from 'react';
-import MapView from 'react-native-maps';
+import MapView, {  Marker } from 'react-native-maps';
 import { StyleSheet } from 'react-native';
 
 export class VistaMapa extends Component {
+
+    constructor(props){
+        super(props)
+        this.state = {
+            //coordenadas de guzman, el punto inicial
+            latitude: 19.7046600,
+            longitude: -103.4617000,
+            error: null
+        }
+    }
+
+
+    componentDidMount(){
+        navigator.geolocation.getCurrentPosition(position => {
+            this.setState({
+                latitude: position.coords.latitude,
+                longitude: position.coords.longitude,
+                error: null,
+            })
+        }, error => this.setState({error: error.message}),
+            { enableHighAccuracy: true, timeout: 20000, maximumAge: 2000 }
+        )
+    }
+
+
     render() {
 
         const guzman = {
-            latitude: 19.7046600,
-            longitude: -103.4617000,
+            //latitude: 19.7046600,
+            //longitude: -103.4617000,
+            latitude: this.state.latitude,
+            longitude: this.state.longitude,
             latitudeDelta: 0.0922,
             longitudeDelta: 0.0421,
         }
@@ -17,8 +44,13 @@ export class VistaMapa extends Component {
                 style={styles.map}
                 initialRegion={guzman}
             >
-                <MapView.Marker
-                    coordinate={guzman}
+                <Marker
+                    coordinate={{
+                        latitude: this.state.latitude,
+                        longitude: this.state.longitude,
+                        latitudeDelta: 0.015,//0.0922,
+                        longitudeDelta: 0.0121,//0.0421,
+                    }}
                     pinColor="blue"
                 />
             </MapView>
