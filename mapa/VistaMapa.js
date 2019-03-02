@@ -14,7 +14,7 @@ export class VistaMapa extends Component {
         }
     }
 
-
+    //OBTIENE LA UBICACIÓN EXACTA DEL USUARIO
     componentDidMount(){
         navigator.geolocation.getCurrentPosition(position => {
             this.setState({
