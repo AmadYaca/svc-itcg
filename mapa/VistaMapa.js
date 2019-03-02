@@ -6,8 +6,9 @@ export class VistaMapa extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            latitude: 0,
-            longitude: 0,
+            //tuxpan
+            latitude: 19.55498,
+            longitude: -103.37763833333332,
         }
     }
 
