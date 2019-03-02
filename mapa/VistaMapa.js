@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import MapView, { Marker } from 'react-native-maps';
-import { View, StyleSheet } from 'react-native';
+import { Text, View, StyleSheet } from 'react-native';
 
 export class VistaMapa extends Component {
     constructor(props) {
@@ -43,33 +43,33 @@ export class VistaMapa extends Component {
         const tuxpan_coords = {
             latitude: 19.55498,
             longitude: -103.37763833333332,
-            latitudeDelta: .0922,
-            longitudeDelta: .0421,
+            latitudeDelta: .0030,
+            longitudeDelta: .0030,
         }
 
         const guzman_coords = {
             latitude: 19.7046600,
             longitude: -103.4617000,
-            latitudeDelta: 0.030,
-            longitudeDelta: 0.030,
+            latitudeDelta: 0.0030,
+            longitudeDelta: 0.0030,
         }
 
         return (
             <MapView
                 style={styles.map}
                 initialRegion={tuxpan_coords}
-                //showsUserLocation
+                showsUserLocation
             >
                 <Marker
                     coordinate={{
-                        latitude: this.state.latitude,//19.55498,
-                        longitude: this.state.longitude,//-103.37763833333332,
+                        latitude: this.state.latitude,
+                        longitude: this.state.longitude,
                     }}
                 >
                     <View style={styles.radius}>
                         <View style={styles.marker} />
                     </View>
-                </Marker>
+                </Marker>               
             </MapView>
         )
     }
@@ -102,5 +102,5 @@ const styles = StyleSheet.create({
         borderColor: 'rgba(0,122,255, 0.3)',
         alignItems: 'center',
         justifyContent: 'center'
-    }
+    },
 });
