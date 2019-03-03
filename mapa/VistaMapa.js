@@ -27,20 +27,22 @@ export class VistaMapa extends Component {
 
     //OBTIENE LA UBICACIÓN EXACTA DEL USUARIO
     componentDidMount() {
-        //se obtiene la posicion
-        navigator.geolocation.getCurrentPosition(position => {
+        //  if (hasLocationPermission) {
+        // Instead of navigator.geolocation, just use Geolocation.
+        Geolocation.getCurrentPosition(position => {
             this.especificarCoordenadasObtenidas(position)
             //var initialPosition = JSON.stringify(position);
             //this.setState({ initialPosition });
         },
-            //se maneja el error  
-            error => alert(error.message),
-            //se establecen algunas propiedades de la ubicacion
-            {
-                enableHighAccuracy: true,
-                timeout: 20000,
-                maximumAge: 2000
-            })
+        //se maneja el error  
+        (error) => alert(error.message, error.message),
+        //se establecen algunas propiedades para conseguir la ubicacion
+        {
+            enableHighAccuracy: true,
+            timeout: 20000,
+            maximumAge: 10000//2000
+        })
+        //}else {alert("Faltan permisos")}        
     }
 
     render() {
@@ -62,7 +64,7 @@ export class VistaMapa extends Component {
             <MapView
                 style={styles.map}
                 initialRegion={tuxpan_coords}
-                showsUserLocation
+                //showsUserLocation
             >
                 <Marker
                     coordinate={{
@@ -73,7 +75,7 @@ export class VistaMapa extends Component {
                     <View style={styles.radius}>
                         <View style={styles.marker} />
                     </View>
-                </Marker>               
+                </Marker>
             </MapView>
         )
     }
