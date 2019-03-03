@@ -1,24 +1,25 @@
 import React, { Component } from 'react';
-import { Text, View, StyleSheet } from 'react-native';
+import { Text, View, StyleSheet } from 'react-native'
 
 //google maps
-import MapView, { Marker } from 'react-native-maps';
+import MapView, { Marker } from 'react-native-maps'
 //geolocation-service
-import Geolocation from 'react-native-geolocation-service';
+import Geolocation from 'react-native-geolocation-service'
+import { PermissionsAndroid } from 'react-native';
 
 export class VistaMapa extends Component {
     constructor(props) {
         super(props)
         this.state = {
             //tuxpan
-            latitude: 19.55498,
-            longitude: -103.37763833333332,
+            latitude: 0,
+            longitude: 0,
         }
     }
 
     //cambia los valores de longitude y latitude en state por los obtenidos de la ubicacion del usuario
     //no funciona
-    especificarCoordenadasObtenidas(position) {
+    actualizarUbicacion(position) {
         this.setState({
             latitude: position.coords.latitude,
             longitude: position.coords.longitude,
@@ -27,29 +28,34 @@ export class VistaMapa extends Component {
 
     //OBTIENE LA UBICACIÓN EXACTA DEL USUARIO
     componentDidMount() {
-        //  if (hasLocationPermission) {
-        // Instead of navigator.geolocation, just use Geolocation.
-        Geolocation.getCurrentPosition(position => {
-            this.especificarCoordenadasObtenidas(position)
-            //var initialPosition = JSON.stringify(position);
-            //this.setState({ initialPosition });
-        },
-        //se maneja el error  
-        (error) => alert(error.message, error.message),
-        //se establecen algunas propiedades para conseguir la ubicacion
-        {
-            enableHighAccuracy: true,
-            timeout: 20000,
-            maximumAge: 10000//2000
-        })
-        //}else {alert("Faltan permisos")}        
+        const granted = PermissionsAndroid.check(PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION);
+
+        if (granted) {
+            Geolocation.getCurrentPosition(position => {
+                actualizarUbicacion(position)
+            },
+                //se maneja el error  
+                (error) => alert("que paso?", error.code),
+                //se establecen algunas propiedades para conseguir la ubicacion
+                {
+                    enableHighAccuracy: true,
+                    timeout: 20000,
+                    maximumAge: 10000,
+                })
+
+            
+
+        }
+        else {
+            alert("ACCESS_FINE_LOCATION permission denied")
+        }
     }
 
     render() {
         const tuxpan_coords = {
             latitude: 19.55498,
             longitude: -103.37763833333332,
-            latitudeDelta: .0030,
+            latitudeDelta: 0.9,// .0030,
             longitudeDelta: .0030,
         }
 
@@ -64,7 +70,7 @@ export class VistaMapa extends Component {
             <MapView
                 style={styles.map}
                 initialRegion={tuxpan_coords}
-                //showsUserLocation
+                showsUserLocation
             >
                 <Marker
                     coordinate={{
