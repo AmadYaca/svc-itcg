@@ -144,7 +144,6 @@ dependencies {
 
     implementation project(':react-native-maps')
     implementation project(':react-native-geolocation-service')
-
 }
 
 // Run this once to be able to run the application with BUCK
