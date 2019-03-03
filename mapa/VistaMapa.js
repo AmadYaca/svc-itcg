@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
-import MapView, { Marker } from 'react-native-maps';
 import { Text, View, StyleSheet } from 'react-native';
+
+//google maps
+import MapView, { Marker } from 'react-native-maps';
+//geolocation-service
+import Geolocation from 'react-native-geolocation-service';
 
 export class VistaMapa extends Component {
     constructor(props) {
