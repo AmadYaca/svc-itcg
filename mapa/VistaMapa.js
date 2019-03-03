@@ -24,31 +24,33 @@ export class VistaMapa extends Component {
             latitude: position.coords.latitude,
             longitude: position.coords.longitude,
         })
+        alert("actualize la ubicacion actual", { cancelable: false })
     }
 
     //OBTIENE LA UBICACIÓN EXACTA DEL USUARIO
     componentDidMount() {
-        const granted = PermissionsAndroid.check(PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION);
+        //const granted = PermissionsAndroid.check(PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION);
+        //alert(granted.PERMISSIONS)
+        //if (granted) {
+            //alert("me concedieron los permisos", { cancelable: false })
 
-        if (granted) {
-            Geolocation.getCurrentPosition(position => {
-                actualizarUbicacion(position)
-            },
-                //se maneja el error  
-                (error) => alert("que paso?", error.code),
-                //se establecen algunas propiedades para conseguir la ubicacion
-                {
-                    enableHighAccuracy: true,
-                    timeout: 20000,
-                    maximumAge: 10000,
-                })
-
-            
-
-        }
-        else {
-            alert("ACCESS_FINE_LOCATION permission denied")
-        }
+        Geolocation.getCurrentPosition(position => {
+            alert(position)
+            alert("obtuve la ubicacion actual", { cancelable: false })
+            actualizarUbicacion(position)
+        },
+            //se maneja el error  
+            (error) => alert(error.message),
+            //se establecen algunas propiedades para conseguir la ubicacion
+            {
+                enableHighAccuracy: true,
+                timeout: 20000,
+                maximumAge: 10000,
+            })
+        //}
+        //else {
+        //  alert("ACCESS_FINE_LOCATION permission denied")
+        //}
     }
 
     render() {
@@ -74,8 +76,8 @@ export class VistaMapa extends Component {
             >
                 <Marker
                     coordinate={{
-                        latitude: this.state.latitude,
-                        longitude: this.state.longitude,
+                        latitude: 19.55498,
+                        longitude: -103.37763833333332,
                     }}
                 >
                     <View style={styles.radius}>

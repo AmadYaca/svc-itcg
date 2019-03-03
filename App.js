@@ -10,31 +10,31 @@ import IconFeather from 'react-native-vector-icons/Feather'
 import { Account } from './Account'
 import { Sets } from './Sets'
 import { VistaMapa } from './mapa/VistaMapa'
-
+import { Login } from './login/Login'
 
 export default createBottomTabNavigator({
-  Destiny: {
+  Destino: {
     screen: VistaMapa,
     navigationOptions: {
-      tabBarLabel: 'Destiny',
+      tabBarLabel: 'Destino',
       tabBarIcon: ({ tintColor }) => (
         <IconFeather name="map-pin" size={25} color={tintColor} />
       )
     }
   },
-  Channels: {
-    screen: Sets,
+  Canales: {
+    screen: Login,
     navigationOptions: {
-      tabBarLabel: 'Channels',
+      tabBarLabel: 'Canales',
       tabBarIcon: ({ tintColor }) => (
         <Icon name="bars" size={35} color={tintColor} />//"#666" />
       )
     }
   },
-  Account: {
+  Cuenta: {
     screen: Account,
     navigationOptions: {
-      tabBarLabel: 'Account',
+      tabBarLabel: 'Cuenta',
       tabBarIcon: ({ tintColor }) => (
         <Icon name="user" size={25} color={tintColor} />
       )
@@ -42,7 +42,7 @@ export default createBottomTabNavigator({
   },
 }, {
     //router config
-    //initialRouteName: 'Account', //que pestaña se visualiza primero
+    initialRouteName: 'Canales', //que pestaña se visualiza primero
     //order: ['Channels', 'Account', 'Destiny'], //orden en el que se visualiza en el tab
 
     //navigation for complete tab navigation
