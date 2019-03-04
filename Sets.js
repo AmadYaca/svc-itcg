@@ -1,13 +1,25 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import { StackNavigator } from 'react-navigation'
 
+import Login from './login/Login'
+import Home from './App'
 
-export class Sets extends Component {
+const app = StackNavigator({
+  LoginPage: { screen: Login },
+  HomePage: { screen: Home },
+})
+
+const { navigate } = this.props.navigation;
+export default class Sets extends Component {
   render() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>RUTAS que te podrian llevar n.n</Text>
-      </View>
+      <Button
+        title="Go to Jane's profile"
+        onPress={() =>
+          navigate('HomePage')
+        }>
+      </Button>
     );
   }
 }
