@@ -42,7 +42,7 @@ export default createBottomTabNavigator({
   },
 }, {
     //router config
-    initialRouteName: 'Canales', //que pestaña se visualiza primero
+    //initialRouteName: 'Canales', //que pestaña se visualiza primero
     //order: ['Channels', 'Account', 'Destiny'], //orden en el que se visualiza en el tab
 
     //navigation for complete tab navigation

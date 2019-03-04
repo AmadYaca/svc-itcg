@@ -57,7 +57,7 @@ export class VistaMapa extends Component {
         const tuxpan_coords = {
             latitude: 19.55498,
             longitude: -103.37763833333332,
-            latitudeDelta: 0.9,// .0030,
+            latitudeDelta: 0.003,// .0030,
             longitudeDelta: .0030,
         }
 

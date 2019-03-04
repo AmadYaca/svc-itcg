@@ -5,20 +5,21 @@ import { StackNavigator } from 'react-navigation'
 import Login from './login/Login'
 import Home from './App'
 
-const app = StackNavigator({
-  LoginPage: { screen: Login },
-  HomePage: { screen: Home },
-})
+//const app = StackNavigator({
+  //LoginPage: { screen: Login },
+  //HomePage: { screen: Login },
+//})
 
-const { navigate } = this.props.navigation;
+//const { navigate } = this.props.navigation;
 export default class Sets extends Component {
   render() {
     return (
       <Button
-        title="Go to Jane's profile"
-        onPress={() =>
-          navigate('HomePage')
-        }>
+        //title="Go to Jane's profile"
+        //onPress={() =>
+          //navigate('HomePage')
+        //}
+        >
       </Button>
     );
   }
