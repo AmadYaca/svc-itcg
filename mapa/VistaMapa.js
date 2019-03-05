@@ -1,118 +1,140 @@
 import React, { Component } from 'react';
-import { Text, View, StyleSheet } from 'react-native'
+import { Text, TextInput, View, StyleSheet } from 'react-native'
 
-//google maps
 import MapView, { Marker } from 'react-native-maps'
 import MapViewDirections from 'react-native-maps-directions'
-//geolocation-service
-import Geolocation from 'react-native-geolocation-service'
-import { PermissionsAndroid } from 'react-native';
+
+import myKey from '../google_api_key'
 
 export class VistaMapa extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            //tuxpan
             latitude: 0,
             longitude: 0,
+            destination: "",
+            predictions: [],
+            error: "",
         }
-    }
-
-    //cambia los valores de longitude y latitude en state por los obtenidos de la ubicacion del usuario
-    //no funciona
-    actualizarUbicacion(position) {
-        this.setState({
-            latitude: position.coords.latitude,
-            longitude: position.coords.longitude,
-        })
-        alert("actualize la ubicacion actual", { cancelable: false })
     }
 
     //OBTIENE LA UBICACIÓN EXACTA DEL USUARIO
     componentDidMount() {
-        // Instead of navigator.geolocation, just use Geolocation.
-        //if (hasLocationPermission) {
         navigator.geolocation.getCurrentPosition(
-            (position) => {
-                this.actualizarUbicacion(position)
+            position => {
+                this.setState({
+                    latitude: position.coords.latitude,
+                    longitude: position.coords.longitude,
+                })
             },
-            (error) => {
-                // See error code charts below.
+            error => {
+                this.setState({ error: error.message })
                 alert(error.message);
             },
-            { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 }
+            { enableHighAccuracy: true, timeout: 20000, maximumAge: 2000 }
         );
-        //}
     }
 
-    render() {
-        const tuxpan_coords = {
-            latitude: 19.55498,
-            longitude: -103.37763833333332,
-            latitudeDelta: 0.003,// .0030,
-            longitudeDelta: .0030,
+    async onChangeDestination(destination) {
+        this.setState({ destination })
+
+        const apiUrl = `https://maps.googleapis.com/maps/api/place/autocomplete/json?key=${myKey}
+            &input=${destination}
+            &location=${this.state.latitude}, ${this.state.longitude}
+            &radius=2000`
+        try {
+            const result = await fetch(apiUrl)
+            const json = await result.json()
+            this.setState({
+                predictions: json.predictions
+            })
+        }catch(err){
+            alert(err.message)
         }
+            
+
+    }
+    
+    render() {
+
+        const predictions = this.state.predictions.map(prediction => 
+            <Text style={styles.suggestions} key={prediction.id}>{prediction.description}</Text>
+        )
 
         const ruta = [
             {
+                //tuxpan
                 latitude: 19.55498,
                 longitude: -103.37763833333332,
             },
             {
+                //guzman
                 latitude: 19.7046600,
                 longitude: -103.4617000,
             }
         ]
 
-        const guzman_coords = {
-            latitude: 19.7046600,
-            longitude: -103.4617000,
-            latitudeDelta: 0.0030,
-            longitudeDelta: 0.0030,
-        }
-
         return (
-            <MapView
-                style={styles.map}
-                initialRegion={tuxpan_coords}
-                showsUserLocation
-            >
-                <Marker
-                    draggable={true}
-                    coordinate={{
-                        latitude: 19.55498,
-                        longitude: -103.37763833333332,
+            <View style={styles.container}>
+                <MapView
+                    style={styles.map}
+                    region={{
+                        latitude: this.state.latitude,
+                        longitude: this.state.longitude,
+                        latitudeDelta: 0.0030,
+                        longitudeDelta: 0.0030,
                     }}
+                    showsUserLocation={true}
                 >
-                    <View style={styles.radius}>
-                        <View style={styles.marker} />
-                    </View>
-                </Marker>
+                    <Marker
+                        draggable={true}
+                        coordinate={{
+                            latitude: this.state.latitude,
+                            longitude: this.state.longitude,
+                        }}
+                    >
+                        <View style={styles.radius}>
+                            <View style={styles.marker} />
+                        </View>
+                    </Marker>
 
-                <MapViewDirections
-                    origin={ruta[0]}
-                    destination={ruta[1]}
-                    apikey="AIzaSyCIES-YVX0vcZa0vQb61Vru_SriIf1jgD0"
-                    strokeWidth={5}
-                    strokeColor="red"
-                >
+                    <MapViewDirections
+                        origin={ruta[0]}
+                        destination={ruta[1]}
+                        apikey={myKey}
+                        strokeWidth={5}
+                        strokeColor="red"
+                    >
+                    </MapViewDirections>
 
-
-                </MapViewDirections>
-
-
-            </MapView >
+                </MapView >
+                <TextInput
+                    style={styles.destinationInput}
+                    placeholder="¿A dónde vas?"
+                    value={this.state.destination}
+                    onChangeText={destination => this.onChangeDestination(destination)}
+                />
+                {predictions}
+            </View>
         )
     }
 }
 
 const styles = StyleSheet.create({
+    container: {
+        ...StyleSheet.absoluteFillObject
+    },
+    destinationInput: {
+        height: 40,
+        borderRadius: 8,
+        borderWidth: 1,
+        marginTop: 30,
+        marginHorizontal: 5,
+        padding: 5,
+        backgroundColor: "white",
+    },
     map: {
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
+        ...StyleSheet.absoluteFillObject
     },
     marker: {
         height: 20,
@@ -134,4 +156,12 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center'
     },
+    suggestions:{
+        backgroundColor: "white",
+        padding: 5,
+        fontSize: 18,
+        borderWidth: 0.5,
+        marginHorizontal: 5,
+
+    }
 });
