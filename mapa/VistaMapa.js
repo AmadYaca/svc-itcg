@@ -3,6 +3,7 @@ import { Text, View, StyleSheet } from 'react-native'
 
 //google maps
 import MapView, { Marker } from 'react-native-maps'
+import MapViewDirections from 'react-native-maps-directions'
 //geolocation-service
 import Geolocation from 'react-native-geolocation-service'
 import { PermissionsAndroid } from 'react-native';
@@ -31,16 +32,16 @@ export class VistaMapa extends Component {
     componentDidMount() {
         // Instead of navigator.geolocation, just use Geolocation.
         //if (hasLocationPermission) {
-            navigator.geolocation.getCurrentPosition(
-                (position) => {
-                    this.actualizarUbicacion(position)
-                },
-                (error) => {
-                    // See error code charts below.
-                    alert(error.message);
-                },
-                { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 }
-            );
+        navigator.geolocation.getCurrentPosition(
+            (position) => {
+                this.actualizarUbicacion(position)
+            },
+            (error) => {
+                // See error code charts below.
+                alert(error.message);
+            },
+            { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 }
+        );
         //}
     }
 
@@ -51,6 +52,17 @@ export class VistaMapa extends Component {
             latitudeDelta: 0.003,// .0030,
             longitudeDelta: .0030,
         }
+
+        const ruta = [
+            {
+                latitude: 19.55498,
+                longitude: -103.37763833333332,
+            },
+            {
+                latitude: 19.7046600,
+                longitude: -103.4617000,
+            }
+        ]
 
         const guzman_coords = {
             latitude: 19.7046600,
@@ -66,6 +78,7 @@ export class VistaMapa extends Component {
                 showsUserLocation
             >
                 <Marker
+                    draggable={true}
                     coordinate={{
                         latitude: 19.55498,
                         longitude: -103.37763833333332,
@@ -75,7 +88,20 @@ export class VistaMapa extends Component {
                         <View style={styles.marker} />
                     </View>
                 </Marker>
-            </MapView>
+
+                <MapViewDirections
+                    origin={ruta[0]}
+                    destination={ruta[1]}
+                    apikey="AIzaSyCIES-YVX0vcZa0vQb61Vru_SriIf1jgD0"
+                    strokeWidth={5}
+                    strokeColor="red"
+                >
+
+
+                </MapViewDirections>
+
+
+            </MapView >
         )
     }
 }
