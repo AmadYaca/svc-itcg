@@ -29,27 +29,18 @@ export class VistaMapa extends Component {
 
     //OBTIENE LA UBICACIÓN EXACTA DEL USUARIO
     componentDidMount() {
-        //const granted = PermissionsAndroid.check(PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION);
-        //alert(granted.PERMISSIONS)
-        //if (granted) {
-            //alert("me concedieron los permisos", { cancelable: false })
-
-        Geolocation.getCurrentPosition(position => {
-            alert(position)
-            alert("obtuve la ubicacion actual", { cancelable: false })
-            actualizarUbicacion(position)
-        },
-            //se maneja el error  
-            (error) => alert(error.message),
-            //se establecen algunas propiedades para conseguir la ubicacion
-            {
-                enableHighAccuracy: true,
-                timeout: 20000,
-                maximumAge: 10000,
-            })
-        //}
-        //else {
-        //  alert("ACCESS_FINE_LOCATION permission denied")
+        // Instead of navigator.geolocation, just use Geolocation.
+        //if (hasLocationPermission) {
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    this.actualizarUbicacion(position)
+                },
+                (error) => {
+                    // See error code charts below.
+                    alert(error.message);
+                },
+                { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 }
+            );
         //}
     }
 
