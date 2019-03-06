@@ -25,7 +25,7 @@ export default createBottomTabNavigator({
   Canales: {
     screen: Login,
     navigationOptions: {
-      tabBarLabel: 'Canales',
+      tabBarLabel: 'Ofertas',
       tabBarIcon: ({ tintColor }) => (
         <Icon name="bars" size={35} color={tintColor} />//"#666" />
       )

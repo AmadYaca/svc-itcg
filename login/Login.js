@@ -27,7 +27,7 @@ export class Login extends Component {
 
 const styles = StyleSheet.create({
     logo: {
-        width: 80,
+        width: 120,
         height: 80,
         opacity: 0.8,
     },
@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
         left: 0,
         right: 0,
         bottom: 0,
-        backgroundColor: '#FFEB3B',//'#64DD17',
+        backgroundColor: 'white',//'#FFEB3B',//'#64DD17',
         alignItems: 'center',
         justifyContent: 'center',
     },

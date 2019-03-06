@@ -14,7 +14,7 @@ export class LoginForm extends Component {
                     keyboardType="email-address"
                     onSubmitEditing={() => this.passwordInput.focus()}
                     placeholder="Usuario o correo"
-                    placeholderTextColor={'rgba(255,255,255,0.4)'}
+                    placeholderTextColor={'rgba(0,0,0,0.4)'}
                     returnKeyType="next"
                     underlineColorAndroid='transparent'>
                 </TextInput>
@@ -24,7 +24,7 @@ export class LoginForm extends Component {
                     autoCapitalize="none"
                     autoCorrect={false}
                     placeholder="Contraseña"
-                    placeholderTextColor={'rgba(255,255,255,0.4)'}
+                    placeholderTextColor={'rgba(0,0,0,0.4)'}
                     ref={(input) => this.passwordInput = input}
                     returnKeyType="go"
                     secureTextEntry>
