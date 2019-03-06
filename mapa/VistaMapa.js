@@ -3,8 +3,8 @@ import { Text, TextInput, View, StyleSheet } from 'react-native'
 
 import MapView, { Marker } from 'react-native-maps'
 import MapViewDirections from 'react-native-maps-directions'
-
 import myKey from '../google_api_key'
+import _ from 'lodash'
 
 export class VistaMapa extends Component {
     constructor(props) {
@@ -16,6 +16,8 @@ export class VistaMapa extends Component {
             predictions: [],
             error: "",
         }
+        this.onChangeDestinationDebounced = _.debounce(
+            this.onChangeDestination, 650)
     }
 
     //OBTIENE LA UBICACIÓN EXACTA DEL USUARIO
@@ -41,7 +43,7 @@ export class VistaMapa extends Component {
         const apiUrl = `https://maps.googleapis.com/maps/api/place/autocomplete/json?key=${myKey}
             &input=${destination}
             &location=${this.state.latitude}, ${this.state.longitude}
-            &radius=2000`
+            &radius=200`
         try {
             const result = await fetch(apiUrl)
             const json = await result.json()
@@ -54,7 +56,7 @@ export class VistaMapa extends Component {
             
 
     }
-    
+
     render() {
 
         const predictions = this.state.predictions.map(prediction => 
@@ -112,7 +114,10 @@ export class VistaMapa extends Component {
                     style={styles.destinationInput}
                     placeholder="¿A dónde vas?"
                     value={this.state.destination}
-                    onChangeText={destination => this.onChangeDestination(destination)}
+                    onChangeText={destination => {
+                        this.setState({destination})
+                        this.onChangeDestinationDebounced(destination)
+                    }}
                 />
                 {predictions}
             </View>
