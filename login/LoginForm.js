@@ -1,14 +1,25 @@
 import React, { Component } from 'react'
-import { Dimensions, KeyboardAvoidingView, StatusBar, StyleSheet, Text, TextInput, TouchableOpacity } from 'react-native'
+import { 
+    Dimensions, 
+    KeyboardAvoidingView, 
+    StatusBar, 
+    StyleSheet, 
+    Text, 
+    TextInput, 
+    TouchableOpacity,
+    View
+} from 'react-native'
+import { LoginButton, AccessToken } from 'react-native-fbsdk';
+
 
 const { width: WIDTH } = Dimensions.get('window')
 export class LoginForm extends Component {
     render() {
         return (
             <KeyboardAvoidingView behavior="padding" style={styles.container}>
-                
+
                 <StatusBar barstyle="light-content" />
-                
+
                 <TextInput
                     style={styles.input}
                     keyboardType="email-address"
@@ -35,6 +46,26 @@ export class LoginForm extends Component {
                         ¡Vámonos!
                     </Text>
                 </TouchableOpacity>
+                <View>
+                    <LoginButton
+                        style = {styles.fb}
+                        onLoginFinished={
+                            (error, result) => {
+                                if (error) {
+                                    alert("Error en el Inicio de Sesión" + result.error);
+                                } else if (result.isCancelled) {
+                                    alert("Inicio de Sesion Cancelada");
+                                } else {
+                                    AccessToken.getCurrentAccessToken().then(
+                                        (data) => {
+                                            alert(data.accessToken.toString())
+                                        }
+                                    )
+                                }
+                            }
+                        }
+                        onLogoutFinished={() => alert("Cerrando Sesión")} />
+                </View>
             </KeyboardAvoidingView>
         )
     }
@@ -68,4 +99,8 @@ const styles = StyleSheet.create({
         color: 'rgba(255,255,255,0.9)',
         marginBottom: 10,
     },
+    fb:{
+        margin: 20,
+        padding:17
+    }
 })

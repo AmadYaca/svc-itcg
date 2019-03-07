@@ -1,27 +1,29 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View} from 'react-native';
+import { View } from 'react-native';
+import { LoginButton, AccessToken } from 'react-native-fbsdk';
 
 export class Account extends Component {
-    render() {
-      return (
-        <View style={styles.container}>
-          <Text style={styles.welcome}>Describe yoour persona crea tu reputacion</Text>
-  
-        </View>
-      );
-    }
+  render() {
+    return (
+      <View>
+        <LoginButton
+          onLoginFinished={
+            (error, result) => {
+              if (error) {
+                alert("login has error: " + result.error);
+              } else if (result.isCancelled) {
+                alert("login is cancelled.");
+              } else {
+                AccessToken.getCurrentAccessToken().then(
+                  (data) => {
+                    alert(data.accessToken.toString())
+                  }
+                )
+              }
+            }
+          }
+          onLogoutFinished={() => console.log("logout.")} />
+      </View>
+    );
   }
-
-  const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center',
-      backgroundColor: '#F5FCFF',
-    },
-    welcome: {
-      fontSize: 20,
-      textAlign: 'center',
-      margin: 10,
-    },
-  });
+}
