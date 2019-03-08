@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "667050859900",
+    "firebase_url": "https://mapas1000-1551411411725.firebaseio.com",
+    "project_id": "mapas1000-1551411411725",
+    "storage_bucket": "mapas1000-1551411411725.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:667050859900:android:631fe1fb5e6dd354",
+        "android_client_info": {
+          "package_name": "com.navega"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "667050859900-5q1mqcvhkin2m73qu3n2fjnuckfea6v2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAvqqfS_ZfzToxK3TxRfD-AsQFAkmi792M"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
