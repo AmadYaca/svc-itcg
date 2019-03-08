@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { StackNavigator } from 'react-navigation'
 
-import Login from './login/Login'
-import Home from './App'
+import Login from '../../componentes/login/Login'
+import Home from '../../App'
 
 //const app = StackNavigator({
   //LoginPage: { screen: Login },

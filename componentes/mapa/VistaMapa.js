@@ -3,7 +3,7 @@ import { Text, TextInput, View, StyleSheet } from 'react-native'
 
 import MapView, { Marker } from 'react-native-maps'
 import MapViewDirections from 'react-native-maps-directions'
-import myKey from '../google_api_key'
+import myKey from '../../google_api_key'
 import _ from 'lodash'
 
 export class VistaMapa extends Component {

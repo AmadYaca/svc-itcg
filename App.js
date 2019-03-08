@@ -7,10 +7,10 @@ import IconFeather from 'react-native-vector-icons/Feather'
 //const myIcon = (<Icon name="caretup" size={40} color="#900"/>)
 
 //las clases que se mostraran en cada tab
-import { Account } from './Account'
-import { Sets } from './Sets'
-import { VistaMapa } from './mapa/VistaMapa'
-import { Login } from './login/Login'
+import { Account } from './componentes/tabs/Account'
+import { Sets } from './componentes/tabs/Sets'
+import { VistaMapa } from './componentes/mapa/VistaMapa'
+import { Login } from './componentes/login/Login'
 
 export default createBottomTabNavigator({
   Destino: {

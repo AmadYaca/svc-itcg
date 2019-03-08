@@ -6,8 +6,8 @@ import {
     View,
 } from 'react-native'
 
-import logo from '../logos/itcgcolor.png'
-import {LoginForm} from '../login/LoginForm'
+import logo from '../../logos/itcgcolor.png'
+import {LoginForm} from '../../componentes/login/LoginForm'
 
 export class Login extends Component {
     render() {
