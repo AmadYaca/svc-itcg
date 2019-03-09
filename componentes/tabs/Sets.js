@@ -1,24 +1,10 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import { StackNavigator } from 'react-navigation'
+import { StyleSheet, Button } from 'react-native';
 
-import Login from '../../componentes/login/Login'
-import Home from '../../App'
-
-//const app = StackNavigator({
-  //LoginPage: { screen: Login },
-  //HomePage: { screen: Login },
-//})
-
-//const { navigate } = this.props.navigation;
 export default class Sets extends Component {
   render() {
     return (
       <Button
-        //title="Go to Jane's profile"
-        //onPress={() =>
-          //navigate('HomePage')
-        //}
         >
       </Button>
     );
@@ -31,10 +17,5 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
   },
 });
