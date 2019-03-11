@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
-import { createBottomTabNavigator } from 'react-navigation'
+import { createAppContainer, createBottomTabNavigator } from 'react-navigation'
 import Icon from 'react-native-vector-icons/AntDesign'
 import IconFeather from 'react-native-vector-icons/Feather'
 //const myIcon = (<Icon name="caretup" size={40} color="#900"/>)
@@ -12,7 +12,11 @@ import { Sets } from './componentes/tabs/Sets'
 import { VistaMapa } from './componentes/mapa/VistaMapa'
 import { Login } from './componentes/login/Login'
 
-export default createBottomTabNavigator({
+class App extends Component {
+
+}
+
+const TabNavigator = createBottomTabNavigator({
   Destino: {
     screen: VistaMapa,
     navigationOptions: {
@@ -54,6 +58,8 @@ export default createBottomTabNavigator({
       inactiveTintColor: 'red'
     }
   });
+
+export default createAppContainer(TabNavigator)
 
 const styles = StyleSheet.create({
   container: {
