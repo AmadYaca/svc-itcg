@@ -7,9 +7,26 @@ import {
 } from 'react-native'
 
 import logo from '../../logos/itcgcolor.png'
-import {LoginForm} from '../../componentes/login/LoginForm'
+import { LoginForm } from '../../componentes/login/LoginForm'
+
+import firebase from 'react-native-firebase'
 
 export class Login extends Component {
+
+    componentWillMount() {
+        var config = {
+            apiKey: "AIzaSyAlqYz6b5XJbuoolVQ8wFmO5_gE99_-YvE",
+            authDomain: "mapas1000-1551411411725.firebaseapp.com",
+            databaseURL: "https://mapas1000-1551411411725.firebaseio.com",
+            projectId: "mapas1000-1551411411725",
+            storageBucket: "",
+            messagingSenderId: "667050859900"
+        };
+        firebase.initializeApp(config);
+
+        alert(firebase)
+    }
+
     render() {
         return (
             <View style={styles.logoContainer}>
@@ -32,7 +49,7 @@ const styles = StyleSheet.create({
         opacity: 0.8,
     },
     logoContainer: {
-        position:'absolute',
+        position: 'absolute',
         top: 0,
         left: 0,
         right: 0,
@@ -49,7 +66,7 @@ const styles = StyleSheet.create({
         opacity: 0.5,
         marginTop: 5,
         textAlign: 'center',
-        width:250,
+        width: 250,
         marginBottom: 15,
     },
 })  
