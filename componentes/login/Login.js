@@ -22,9 +22,18 @@ export class Login extends Component {
             storageBucket: "",
             messagingSenderId: "667050859900"
         };
-        firebase.initializeApp(config);
-
-        alert(firebase)
+        //firebase.initializeApp(config);
+        firebase.app()
+        /*firebase.database().ref('users/001').set(
+            {
+                nombre: 'Amilcar Yanez',
+                age: 27,
+            }
+        ).then(()=>{
+            alert("inserted ")
+        }).catch((error)=>{
+            alert(error)
+        })*/
     }
 
     render() {
