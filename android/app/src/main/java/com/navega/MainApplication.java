@@ -4,7 +4,7 @@ import android.app.Application;
 
 import com.facebook.react.ReactApplication;
 import io.invertase.firebase.RNFirebasePackage;
-import io.invertase.firebase.RNFirebaseDatabasePackage;
+//import io.invertase.firebase.RNFirebaseDatabasePackage;
 import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
 import com.facebook.reactnative.androidsdk.FBSDKPackage;
 import com.facebook.react.ReactNativeHost;
@@ -47,7 +47,7 @@ public class MainApplication extends Application implements ReactApplication {
                     //react-native
                     new MainReactPackage(),
                     new RNFirebasePackage(),
-                    new RNFirebaseDatabasePackage(),
+                    //new RNFirebaseDatabasePackage(),
                     new RNGestureHandlerPackage(),
                     //google maps
                     new MapsPackage(),
