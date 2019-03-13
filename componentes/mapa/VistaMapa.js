@@ -5,6 +5,7 @@ import MapView, { Marker } from 'react-native-maps'
 import MapViewDirections from 'react-native-maps-directions'
 import myKey from '../../google_api_key'
 import _ from 'lodash'
+import Polyline from '@mapbox/polyline'
 
 export class VistaMapa extends Component {
     constructor(props) {
@@ -37,6 +38,19 @@ export class VistaMapa extends Component {
         );
     }
 
+    async getRouteDirections() {
+        try {
+            const response = await fetch(
+                `https://maps.googleapis.com/maps/api/directions/json?origin=Disneyland&destination=Universal+Studios+Hollywood&key=${myKey}`
+            )
+            const respJson = await response.json();
+            const points = Polyline.decode(respJson.routes[0].overview_polyline.points)
+        }catch(error){
+            alert(error)
+        }
+
+    }
+
     async onChangeDestination(destination) {
         this.setState({ destination })
 
@@ -50,16 +64,14 @@ export class VistaMapa extends Component {
             this.setState({
                 predictions: json.predictions
             })
-        }catch(err){
+        } catch (err) {
             alert(err.message)
         }
-            
-
     }
 
     render() {
 
-        const predictions = this.state.predictions.map(prediction => 
+        const predictions = this.state.predictions.map(prediction =>
             <Text style={styles.suggestions} key={prediction.id}>{prediction.description}</Text>
         )
 
@@ -115,7 +127,7 @@ export class VistaMapa extends Component {
                     placeholder="¿A dónde vas?"
                     value={this.state.destination}
                     onChangeText={destination => {
-                        this.setState({destination})
+                        this.setState({ destination })
                         this.onChangeDestinationDebounced(destination)
                     }}
                 />
@@ -161,12 +173,11 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center'
     },
-    suggestions:{
+    suggestions: {
         backgroundColor: "white",
         padding: 5,
         fontSize: 18,
         borderWidth: 0.5,
         marginHorizontal: 5,
-
     }
 });
