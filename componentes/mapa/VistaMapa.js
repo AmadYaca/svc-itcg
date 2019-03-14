@@ -4,8 +4,8 @@ import { Keyboard, Text, TextInput, TouchableHighlight, StyleSheet, View } from 
 import MapView, { Polyline, Marker } from 'react-native-maps'
 import MapViewDirections from 'react-native-maps-directions'
 import myKey from '../../google_api_key'
-import _ from 'lodash'
 import PolyLine from '@mapbox/polyline'
+import _ from 'lodash'
 
 export class VistaMapa extends Component {
     constructor(props) {
@@ -30,14 +30,11 @@ export class VistaMapa extends Component {
                     latitude: position.coords.latitude,
                     longitude: position.coords.longitude,
                 })
-                this.getRouteDirections();
-
             },
             error => {
                 this.setState({ error: error.message })
-                alert(error.message);
             },
-            { enableHighAccuracy: true, timeout: 20000, maximumAge: 2000 }
+            { enableHighAccuracy: true, timeout: 10000, maximumAge: 2000 }
         );
     }
 
@@ -48,8 +45,8 @@ export class VistaMapa extends Component {
                 this.state.latitude
                 },${this.state.longitude}&destination=place_id:${destinationPlace}&key=${myKey}`
             )
-            const respJson = await response.json();
-            const points = PolyLine.decode(respJson.routes[0].overview_polyline.points)
+            const json = await response.json();
+            const points = PolyLine.decode(json.routes[0].overview_polyline.points)
             const pointCoords = points.map(point => {
                 return {
                     latitude: point[0],
@@ -74,7 +71,7 @@ export class VistaMapa extends Component {
         const apiUrl = `https://maps.googleapis.com/maps/api/place/autocomplete/json?key=${myKey}
             &input=${destination}
             &location=${this.state.latitude}, ${this.state.longitude}
-            &radius=200`
+            &radius=20`//2000`
         try {
             const result = await fetch(apiUrl)
             const json = await result.json()
@@ -82,7 +79,7 @@ export class VistaMapa extends Component {
                 predictions: json.predictions
             })
         } catch (err) {
-            console.error(error);//alert(err.message)
+            console.error(err);//alert(err.message)
         }
     }
 
@@ -90,16 +87,11 @@ export class VistaMapa extends Component {
 
         let marker = null;
         if (this.state.pointCoords.length > 1) {
+            let last_point = this.state.pointCoords.length - 1
             marker = (
                 <Marker
                     draggable={true}
-                    coordinate={
-                        this.state.pointCoords[this.state.pointCoords.length - 1]
-                        /*
-                        latitude: this.state.latitude,
-                        longitude: this.state.longitude,
-                        */
-                    }
+                    coordinate={this.state.pointCoords[last_point]}
                 >
                     <View style={styles.radius}>
                         <View style={styles.marker} />
@@ -108,7 +100,7 @@ export class VistaMapa extends Component {
             )
         }
 
-        const predictions = this.state.predictions.map(prediction =>
+        const predictions = this.state.predictions.map(prediction => (
             <TouchableHighlight
                 key={prediction.id}
                 onPress={() =>
@@ -119,7 +111,7 @@ export class VistaMapa extends Component {
                     <Text style={styles.suggestions}>{prediction.structured_formatting.main_text}</Text>{/*description en lugar de structured_formattin*/}
                 </View>
             </TouchableHighlight>
-        )
+        ))
 
         const ruta = [
             {
@@ -144,36 +136,26 @@ export class VistaMapa extends Component {
                     region={{
                         latitude: this.state.latitude,
                         longitude: this.state.longitude,
-                        latitudeDelta: 0.0030,
-                        longitudeDelta: 0.0030,
+                        latitudeDelta: 0.015,//0.0030,
+                        longitudeDelta: 0.0121//0.0030,
                     }}
                     showsUserLocation={true}
                 >
-                    {/*<MapViewDirections
-                        origin={ruta[0]}
-                        destination={ruta[1]}
-                        apikey={myKey}
-                        strokeWidth={5}
-                        strokeColor="red"
-                    >
-                    </MapViewDirections>*/}
-
                     <Polyline
                         coordinates={this.state.pointCoords}
-                        strokeWidth={10}
+                        strokeWidth={4}
                         strokeColor="green"
-                    >
-                    </Polyline>
+                    />
                     {marker}
                 </MapView >
-
-
 
                 <TextInput
                     style={styles.destinationInput}
                     placeholder="¿A dónde vas?"
                     value={this.state.destination}
+                    clearButtonMode="always"
                     onChangeText={destination => {
+                        //esta linea no la tiene, sera ee problema?
                         this.setState({ destination })
                         this.onChangeDestinationDebounced(destination)
                     }}
